@@ -16,8 +16,10 @@ module.exports = {
     'data-viz': {
       colors: {
         // The primitive token for lilac is defined here.
+      
         dataVizLilac: { light: "#7A7AC6", dark: "#7A7AC6" },
-        dataVizBlue: { light: "#5669FF", dark: "#5669FF" }
+        dataVizBlue: { light: "#5669FF", dark: "#5669FF" },
+    
       }
     },
     temporary: {
@@ -43,7 +45,13 @@ module.exports = {
       // Utility class: .backgroundDataVizLilac
       background: {
         dataVizLilac: "{data-viz.colors.dataVizLilac}",
-        dataVizBlue: "{data-viz.colors.dataVizBlue}"
+        dataVizBlue: "{data-viz.colors.dataVizBlue}",
+      }
+    },
+    temporary: {
+      background: {
+        tempNbtPink: "{temporary.colors.tempNbtPink}",
+        tempNbtBlue: "{temporary.colors.tempNbtBlue}"
       }
     }
   },
@@ -67,8 +75,8 @@ module.exports = {
     temporary: {
       background: {
         prefix: "background",
-        // For demonstration, we map temporary background tokens directly.
-        tokens: "{primitives.temporary.colors}"
+        // Mapping temporary background tokens via semantic tokens
+        tokens: "{semanticTokens.temporary.background}"
       }
     }
   }
