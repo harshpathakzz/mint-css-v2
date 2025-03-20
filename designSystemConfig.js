@@ -2,6 +2,7 @@ const designSystemConfig = {
   // PRIMITIVES: Base tokens (e.g. colors) with light/dark values.
   primitives: {
     colors: {
+      //Groww-primary
       black: { light: "#121212", dark: "#121212" },
       white: { light: "#ffffff", dark: "#ffffff" },
       gray900: { light: "#44475b", dark: "#f8f8f8" },
@@ -14,7 +15,7 @@ const designSystemConfig = {
       gray200: { light: "#dddee1", dark: "#414141" },
       gray150: { light: "#e9e9eb", dark: "#2e2e2e" },
       gray100: { light: "#f0f0f2", dark: "#252525" },
-      gray50:  { light: "#f8f8f8", dark: "#1b1b1b" },
+      gray50: { light: "#f8f8f8", dark: "#1b1b1b" },
       green500: { light: "#04B488", dark: "#04B488" },
       green300: { light: "#66e3c4", dark: "#0b5e49" },
       green100: { light: "#E9FAF3", dark: "#0F251D" },
@@ -26,16 +27,46 @@ const designSystemConfig = {
       red500: { light: "#ED5533", dark: "#FF5E3B" },
       red100: { light: "#fae9e5", dark: "#411d16" },
       overlay00: { light: "rgba(18, 18, 18, 0)", dark: "rgba(18, 18, 18, 0)" },
-      overlay30: { light: "rgba(18, 18, 18, 0.3)", dark: "rgba(18, 18, 18, 0.3)" },
-      overlay70: { light: "rgba(18, 18, 18, 0.7)", dark: "rgba(18, 18, 18, 0.7)" },
+      overlay30: {
+        light: "rgba(18, 18, 18, 0.3)",
+        dark: "rgba(18, 18, 18, 0.3)",
+      },
+      overlay70: {
+        light: "rgba(18, 18, 18, 0.7)",
+        dark: "rgba(18, 18, 18, 0.7)",
+      },
       yellow11: { light: "#A16B00", dark: "#F5BC56" },
       // Temporary (pod-specific) tokens:
       tempNbtPink: { light: "#f1e3f3", dark: "#9b63a3" },
       tempNbtYellow: { light: "#fff3c8", dark: "#b27a00" },
       tempNbtBlue: { light: "#d6eeff", dark: "#3e79a4" },
       tempNbtGray: { light: "#f0f0f2", dark: "#5c5c6f" },
-      tempNbtRed: { light: "#ffc7bb", dark: "#c85d0f" }
-    }
+      tempNbtRed: { light: "#ffc7bb", dark: "#c85d0f" },
+
+      //Data-viz
+      dataVizLilac: { light: "#7A7AC6", dark: "#7A7AC6" },
+      dataVizLilacSubtle: { light: "#DFE0EF", dark: "#1D1E2F" },
+      dataVizBlue: { light: "#5669FF", dark: "#5669FF" },
+      dataVizBlueSubtle: { light: "#CAD1FE", dark: "#1E2553" },
+      dataVizSkyBlue: { light: "#4DA4DD", dark: "#4DA4DD" },
+      dataVizSkyBlueSubtle: { light: "#C7E2F3", dark: "#1B3749" },
+      dataVizMintGreen: { light: "#04B488", dark: "#04B488" },
+      dataVizMintGreenSubtle: { light: "#B2E7DA", dark: "#053C2F" },
+      dataVizOliveGreen: { light: "#A1B55C", dark: "#A1B55C" },
+      dataVizOliveGreenSubtle: { light: "#E1E7CD", dark: "#353C22" },
+      dataVizYellow: { light: "#FCCE00", dark: "#FCCE00" },
+      dataVizYellowSubtle: { light: "#FCEFB1", dark: "#504306" },
+      dataVizOrange: { light: "#F59817", dark: "#F59817" },
+      dataVizOrangeSubtle: { light: "#FADFB8", dark: "#4E330D" },
+      dataVizRed: { light: "#FF5E3B", dark: "#FF5E3B" },
+      dataVizRedSubtle: { light: "#F8CBC0", dark: "#512218" },
+      dataVizMagenta: { light: "#C73A75", dark: "#C73A75" },
+      dataVizMagentaSubtle: { light: "#ECC2D4", dark: "#401729" },
+      dataVizBrown: { light: "#9D615C", dark: "#9D615C" },
+      dataVizBrownSubtle: { light: "#DFCECD", dark: "#332322" },
+      dataVizGrey: { light: "#808FA3", dark: "#808FA3" },
+      dataVizGreySubtle: { light: "#BEC6D0", dark: "#434C56" },
+    },
     // (Add other primitive groups like spacing, borderRadius if needed.)
   },
 
@@ -64,7 +95,7 @@ const designSystemConfig = {
       negativeSubtle: "{colors.red100}",
       warningSubtle: "{colors.yellow100}",
       accentSecondary: "{colors.purple500}",
-      accentSecondarySubtle: "{colors.purple100}"
+      accentSecondarySubtle: "{colors.purple100}",
     },
 
     // Border tokens (from border-tokens.css)
@@ -74,7 +105,7 @@ const designSystemConfig = {
       accent: "{colors.green500}",
       positive: "{colors.green500}",
       negative: "{colors.red500}",
-      neutral: { light: "{colors.gray900}", dark: "{colors.white}" }
+      neutral: { light: "{colors.gray900}", dark: "{colors.white}" },
     },
 
     // Content tokens (from content-tokens.css)
@@ -94,7 +125,7 @@ const designSystemConfig = {
       positive: "{colors.green500}",
       accentSecondary: "{colors.purple500}",
       accentSecondarySubtle: "{colors.purple300}",
-      onWarningSubtle: "{colors.yellow11}"
+      onWarningSubtle: "{colors.yellow11}",
     },
 
     // Interaction state tokens (from interaction-state-tokens.css)
@@ -118,8 +149,8 @@ const designSystemConfig = {
       bgTransparentPositiveSelected: "#00B3860F",
       bgNegativeSelected: "#E15A3E",
       bgNegativeSubtleSelected: "#F9E0DB",
-      bgTransparentNegativeSelected: "#EB5B3C0F"
-    }
+      bgTransparentNegativeSelected: "#EB5B3C0F",
+    },
   },
 
   // UTILITY CLASSES: Configuration for generating CSS utility classes.
@@ -127,22 +158,22 @@ const designSystemConfig = {
     // Background utility classes (from background-utils.css)
     background: {
       prefix: "background",
-      tokens: "{semanticTokens.background}"
+      tokens: "{semanticTokens.background}",
     },
     // Border utility classes (from border-utils.css)
     border: {
       prefix: "border",
-      tokens: "{semanticTokens.border}"
+      tokens: "{semanticTokens.border}",
     },
     // Content utility classes (from content-utils.css)
     content: {
       prefix: "content",
-      tokens: "{semanticTokens.content}"
+      tokens: "{semanticTokens.content}",
     },
     // Interaction state utility classes (from interaction-state-utils.css)
     interaction: {
       prefix: "background",
-      tokens: "{semanticTokens.interaction}"
+      tokens: "{semanticTokens.interaction}",
     },
     // Temporary background utility classes (from temp-background-utils.css)
     tempBackground: {
@@ -152,10 +183,10 @@ const designSystemConfig = {
         yellow: "{primitives.colors.tempNbtYellow}",
         blue: "{primitives.colors.tempNbtBlue}",
         gray: "{primitives.colors.tempNbtGray}",
-        red: "{primitives.colors.tempNbtRed}"
-      }
-    }
-  }
+        red: "{primitives.colors.tempNbtRed}",
+      },
+    },
+  },
 };
 
 module.exports = designSystemConfig;
