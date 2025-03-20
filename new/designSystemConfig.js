@@ -1,8 +1,7 @@
 // designSystemConfig.js
-// This configuration defines our design tokens. We have three top-level
-// categories: primitives, semanticTokens, and utilityClasses.
-// Each group (like "groww-primary", "data-viz", "temporary") is defined as a sub-object.
-// All keys will be converted to kebab-case for folder and variable names.
+// This configuration defines our design tokens for primitives, semanticTokens, and utilityClasses.
+// Interaction tokens (such as hover states) are now nested under each group (groww-primary, data-viz, temporary)
+// in the semanticTokens section. All utilityClasses entries MUST define a "property" key.
 
 module.exports = {
   primitives: {
@@ -15,11 +14,8 @@ module.exports = {
     },
     'data-viz': {
       colors: {
-        // The primitive token for lilac is defined here.
-      
         dataVizLilac: { light: "#7A7AC6", dark: "#7A7AC6" },
-        dataVizBlue: { light: "#5669FF", dark: "#5669FF" },
-    
+        dataVizBlue: { light: "#5669FF", dark: "#5669FF" }
       }
     },
     temporary: {
@@ -37,21 +33,30 @@ module.exports = {
       },
       border: {
         primary: "{groww-primary.colors.gray150}"
+      },
+      // Interaction tokens for groww-primary
+      interaction: {
+        backgroundHover: "{groww-primary.colors.gray150}"
       }
     },
     'data-viz': {
-      // Note: The key "data-viz-lilac" will be used to generate:
-      // CSS variable: --background-data-viz-lilac
-      // Utility class: .backgroundDataVizLilac
       background: {
         dataVizLilac: "{data-viz.colors.dataVizLilac}",
-        dataVizBlue: "{data-viz.colors.dataVizBlue}",
+        dataVizBlue: "{data-viz.colors.dataVizBlue}"
+      },
+      // Interaction tokens for data-viz
+      interaction: {
+        backgroundHover: "{data-viz.colors.dataVizLilac}"
       }
     },
     temporary: {
       background: {
         tempNbtPink: "{temporary.colors.tempNbtPink}",
         tempNbtBlue: "{temporary.colors.tempNbtBlue}"
+      },
+      // Interaction tokens for temporary
+      interaction: {
+        backgroundHover: "{temporary.colors.tempNbtPink}"
       }
     }
   },
@@ -59,24 +64,46 @@ module.exports = {
     'groww-primary': {
       background: {
         prefix: "background",
+        property: "background-color",
         tokens: "{semanticTokens.groww-primary.background}"
       },
       border: {
         prefix: "border",
+        property: "border", // expecting border defined in CSS as border property
         tokens: "{semanticTokens.groww-primary.border}"
+      },
+      // Utility for interaction tokens (hover state)
+      interactionHover: {
+        prefix: "background",
+        property: "background-color",
+        tokens: "{semanticTokens.groww-primary.interaction}",
+        pseudo: ":hover"
       }
     },
     'data-viz': {
       background: {
         prefix: "background",
+        property: "background-color",
         tokens: "{semanticTokens.data-viz.background}"
+      },
+      interactionHover: {
+        prefix: "background",
+        property: "background-color",
+        tokens: "{semanticTokens.data-viz.interaction}",
+        pseudo: ":hover"
       }
     },
     temporary: {
       background: {
         prefix: "background",
-        // Mapping temporary background tokens via semantic tokens
+        property: "background-color",
         tokens: "{semanticTokens.temporary.background}"
+      },
+      interactionHover: {
+        prefix: "background",
+        property: "background-color",
+        tokens: "{semanticTokens.temporary.interaction}",
+        pseudo: ":hover"
       }
     }
   }

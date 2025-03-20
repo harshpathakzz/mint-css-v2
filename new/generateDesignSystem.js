@@ -1,8 +1,7 @@
 // generate.js
 // A dependency-free Node.js script that reads designSystemConfig.js and generates
 // a folder structure with CSS, TypeScript types, and names files.
-// The folder structure is driven entirely by the config.
-// All folder names and CSS variable names follow kebab-case conventions.
+// Folder and variable names are driven entirely by the config and follow kebab-case conventions.
 
 const fs = require('fs');
 const path = require('path');
@@ -25,7 +24,6 @@ function toPascalCase(str) {
 
 // If a value is a reference string like "{group.colors.tokenName}",
 // this function returns a CSS variable call pointing to that token.
-// For example, "{data-viz.colors.dataVizLilac}" becomes "var(--data-viz-lilac)".
 function resolveReference(value) {
   const match = value.match(/^\{([^}]+)\}$/);
   if (match) {
@@ -55,7 +53,7 @@ function generatePrimitiveCSS(colors) {
 }
 
 // Generates CSS for semantic tokens.
-// For each token, creates a CSS variable named "--[category]-[token-name]".
+// Each token generates a CSS variable named "--[category]-[token-name]".
 function generateTokenCSS(category, tokens) {
   let lightCSS = '';
   let darkCSS = '';
@@ -81,16 +79,16 @@ function generateTokenCSS(category, tokens) {
   return `html {\n${lightCSS}}\n\nhtml[data-theme="dark"] {\n${darkCSS}}\n`;
 }
 
-// Generates CSS for utility classes. It creates CSS classes that set the property
-// (e.g., background-color) to use the corresponding CSS variable.
-function generateUtilityClassesCSS(prefix, tokensInput) {
-  // If tokensInput is a string reference, resolve it from the config.
+// Generates CSS for utility classes.
+// Each class is generated with the CSS property specified in the config (property is required).
+// Supports optional pseudo selectors.
+function generateUtilityClassesCSS(prefix, tokensInput, utilConfig = {}) {
+  // Resolve tokens if tokensInput is a reference string.
   let tokensObj = tokensInput;
   if (typeof tokensObj === 'string') {
     const refMatch = tokensObj.match(/^\{([^}]+)\}$/);
     if (refMatch) {
       const refParts = refMatch[1].split('.');
-      // Handle explicit "semanticTokens" or "primitives" first.
       if (refParts[0] === 'semanticTokens') {
         const groupName = refParts[1];
         const tokenCategory = refParts[2];
@@ -100,7 +98,7 @@ function generateUtilityClassesCSS(prefix, tokensInput) {
         const tokenCategory = refParts[2];
         tokensObj = config.primitives[groupName][tokenCategory];
       } else {
-        // Otherwise, try to resolve in primitives first
+        // Fallback resolution
         if (config.primitives[refParts[0]] && config.primitives[refParts[0]][refParts[1]]) {
           tokensObj = config.primitives[refParts[0]][refParts[1]];
         } else if (config.semanticTokens[refParts[0]] && config.semanticTokens[refParts[0]][refParts[1]]) {
@@ -110,26 +108,27 @@ function generateUtilityClassesCSS(prefix, tokensInput) {
     }
   }
 
+  // Always use the CSS property defined in the configuration.
+  const property = utilConfig.property;
+  if (!property) {
+    throw new Error(`Utility config for prefix "${utilConfig.prefix}" requires a "property" field.`);
+  }
+
+  // Optional pseudo-selector (e.g., :hover)
+  const pseudo = utilConfig.pseudo || '';
+
   let css = '';
   for (const tokenKey in tokensObj) {
     const tokenKebab = toKebabCase(tokenKey);
-    // Create a class name by combining the prefix with token name in PascalCase.
+    // Create a class name from the prefix and token name (in PascalCase).
     const className = prefix + toPascalCase(tokenKebab);
-    // Determine the CSS property based on the prefix.
-    let property;
-    if (prefix.toLowerCase().includes('background')) {
-      property = 'background-color';
-    } else if (prefix.toLowerCase().includes('border')) {
-      property = 'border';
-    } else {
-      property = 'color';
-    }
-    // The CSS variable name is composed of the prefix (in lowercase) and the token key.
+    // Build the CSS variable name from the prefix (lowercase) and token name.
     const cssVarName = `--${prefix.toLowerCase()}-${tokenKebab}`;
+    // Generate the CSS rule using the property from the config.
     if (property === 'border') {
-      css += `.${className} { border: 1px solid var(${cssVarName}); }\n\n`;
+      css += `.${className}${pseudo} { border: 1px solid var(${cssVarName}); }\n\n`;
     } else {
-      css += `.${className} { ${property}: var(${cssVarName}); }\n\n`;
+      css += `.${className}${pseudo} { ${property}: var(${cssVarName}); }\n\n`;
     }
   }
   return css;
@@ -203,7 +202,7 @@ for (const group in config.primitives) {
 
 // ---------- Process Semantic Tokens ----------
 for (const group in config.semanticTokens) {
-  const groupData = config.semanticTokens[group]; // e.g., { background: { ... }, border: { ... } }
+  const groupData = config.semanticTokens[group]; // e.g., { background: { ... }, border: { ... }, interaction: { ... } }
   let aggregatedTokens = [];
   for (const tokenCategory in groupData) {
     const tokens = groupData[tokenCategory];
@@ -243,7 +242,7 @@ for (const group in config.semanticTokens) {
 
 // ---------- Process Utility Classes ----------
 for (const group in config.utilityClasses) {
-  const groupData = config.utilityClasses[group]; // e.g., { background: { prefix, tokens }, ... }
+  const groupData = config.utilityClasses[group]; // e.g., { background: { prefix, property, tokens }, border: { ... }, interactionHover: { ... } }
   let aggregatedUtils = [];
   for (const utilKey in groupData) {
     const utilConfig = groupData[utilKey];
@@ -257,7 +256,6 @@ for (const group in config.utilityClasses) {
         } else if (refParts[0] === 'primitives') {
           tokensObj = config.primitives[refParts[1]][refParts[2]];
         } else {
-          // Attempt to resolve using the group name if not explicitly specified
           if (config.primitives[refParts[0]] && config.primitives[refParts[0]][refParts[1]]) {
             tokensObj = config.primitives[refParts[0]][refParts[1]];
           } else if (config.semanticTokens[refParts[0]] && config.semanticTokens[refParts[0]][refParts[1]]) {
@@ -266,7 +264,7 @@ for (const group in config.utilityClasses) {
         }
       }
     }
-    const cssContent = generateUtilityClassesCSS(utilConfig.prefix, tokensObj);
+    const cssContent = generateUtilityClassesCSS(utilConfig.prefix, tokensObj, utilConfig);
     const categoryFolder = toKebabCase(utilKey);
     const cssDir = path.join(distDir, 'css', categoryFolderMap.utilityClasses, toKebabCase(group));
     ensureDir(cssDir);
