@@ -45,8 +45,12 @@ function generatePrimitiveCSS(colors) {
       lightCSS += `  ${cssVarName}: ${tokenValue.light};\n`;
       darkCSS += `  ${cssVarName}: ${tokenValue.dark};\n`;
     } else {
-      lightCSS += `  ${cssVarName}: ${tokenValue};\n`;
-      darkCSS += `  ${cssVarName}: ${tokenValue};\n`;
+      // If only a single value is provided, use it for both light and dark themes.
+      const value = typeof tokenValue === 'string'
+        ? resolveReference(tokenValue)
+        : tokenValue;
+      lightCSS += `  ${cssVarName}: ${value};\n`;
+      darkCSS += `  ${cssVarName}: ${value};\n`;
     }
   }
   return `html {\n${lightCSS}}\n\nhtml[data-theme="dark"] {\n${darkCSS}}\n`;
@@ -54,6 +58,7 @@ function generatePrimitiveCSS(colors) {
 
 // Generates CSS for semantic tokens.
 // Each token generates a CSS variable named "--[category]-[token-name]".
+// If a token is provided as a single string, it is used for both light and dark themes.
 function generateTokenCSS(category, tokens) {
   let lightCSS = '';
   let darkCSS = '';
@@ -69,6 +74,7 @@ function generateTokenCSS(category, tokens) {
       lightCSS += `  ${cssVarName}: ${lightVal};\n`;
       darkCSS += `  ${cssVarName}: ${darkVal};\n`;
     } else {
+      // Use the same value for both themes if a single value is provided.
       const value = typeof tokenValue === 'string'
         ? resolveReference(tokenValue)
         : tokenValue;

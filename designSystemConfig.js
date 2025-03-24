@@ -2,6 +2,9 @@
 // This configuration defines our design tokens for primitives, semanticTokens, and utilityClasses.
 // Interaction tokens (such as hover states) are now nested under each group (groww-primary, data-viz, temporary)
 // in the semanticTokens section. All utilityClasses entries MUST define a "property" key.
+//
+// New: Semantic tokens can now be defined with either an object containing "light" and "dark" keys,
+// or as a single string reference. When provided as a string, the same value is used for both themes.
 
 module.exports = {
   primitives: {
@@ -35,7 +38,6 @@ module.exports = {
         overlay70: { light: "rgba(18, 18, 18, 0.7)", dark: "rgba(18, 18, 18, 0.7)" },
         yellow11: { light: "#A16B00", dark: "#F5BC56" },
         dangerouslySetPrimaryBg: { light: "#ffffff", dark: "#121212" },
-      
       }
     },
     'data-viz': {
@@ -76,36 +78,147 @@ module.exports = {
   },
   semanticTokens: {
     'groww-primary': {
+      // Extended mapping based on the provided CSS variables
       background: {
-        primary: "{groww-primary.colors.white}",
-        secondary: "{groww-primary.colors.gray150}"
+        primary: { light: "{groww-primary.colors.white}", dark: "{groww-primary.colors.black}" },
+        secondary: "{groww-primary.colors.gray50}",
+        tertiary: "{groww-primary.colors.gray100}",
+        transparent: "{groww-primary.colors.overlay00}",
+        surfacePrimary: { light: "{groww-primary.colors.white}", dark: "{groww-primary.colors.gray50}" },
+        surfaceSecondary: { light: "{groww-primary.colors.gray50}", dark: "{groww-primary.colors.gray100}" },
+        inversePrimary: { light: "{groww-primary.colors.gray900}", dark: "{groww-primary.colors.white}" },
+        overlayPrimary: "{groww-primary.colors.overlay70}",
+        overlaySecondary: "{groww-primary.colors.overlay30}",
+        alwaysDark: "{groww-primary.colors.black}",
+        alwaysLight: "{groww-primary.colors.white}",
+        accent: "{groww-primary.colors.green500}",
+        positive: "{groww-primary.colors.green500}",
+        negative: "{groww-primary.colors.red500}",
+        warning: "{groww-primary.colors.yellow500}",
+        accentSubtle: "{groww-primary.colors.green100}",
+        positiveSubtle: "{groww-primary.colors.green100}",
+        negativeSubtle: "{groww-primary.colors.red100}",
+        warningSubtle: "{groww-primary.colors.yellow100}",
+        accentSecondary: "{groww-primary.colors.purple500}",
+        accentSecondarySubtle: "{groww-primary.colors.purple100}"
       },
       border: {
-        primary: "{groww-primary.colors.gray150}"
+        primary: "{groww-primary.colors.gray150}",
+        disabled: "{groww-primary.colors.gray100}",
+        accent: "{groww-primary.colors.green500}",
+        positive: "{groww-primary.colors.green500}",
+        negative: "{groww-primary.colors.red500}",
+        neutral: { light: "{groww-primary.colors.gray900}", dark: "{groww-primary.colors.white}" }
       },
-      // Interaction tokens for groww-primary
+      content: {
+        primary: { light: "{groww-primary.colors.gray900}", dark: "{groww-primary.colors.white}" },
+        secondary: "{groww-primary.colors.gray700}",
+        tertiary: "{groww-primary.colors.gray500}",
+        inversePrimary: { light: "{groww-primary.colors.white}", dark: "{groww-primary.colors.black}" },
+        inverseSecondary: { light: "{groww-primary.colors.gray300}", dark: "{groww-primary.colors.gray400}" },
+        disabled: { light: "{groww-primary.colors.gray400}", dark: "{groww-primary.colors.gray500}" },
+        onColour: "{groww-primary.colors.white}",
+        onColourInverse: { light: "{groww-primary.colors.gray900}", dark: "{groww-primary.colors.black}" },
+        accent: "{groww-primary.colors.green500}",
+        negative: "{groww-primary.colors.red500}",
+        warning: "{groww-primary.colors.yellow500}",
+        positive: "{groww-primary.colors.green500}",
+        accentSecondary: "{groww-primary.colors.purple500}",
+        accentSecondarySubtle: "{groww-primary.colors.purple300}",
+        onWarningSubtle: "{groww-primary.colors.yellow11}"
+      },
+      // Existing interaction tokens remain unchanged
       interaction: {
-        backgroundHover: "{groww-primary.colors.gray150}"
+        transparentHover: { light: "{groww-primary.colors.gray150}", dark: "{groww-primary.colors.gray50}" }
       }
     },
     'data-viz': {
       background: {
         dataVizLilac: "{data-viz.colors.dataVizLilac}",
-        dataVizBlue: "{data-viz.colors.dataVizBlue}"
+        dataVizLilacSubtle: "{data-viz.colors.dataVizLilacSubtle}",
+        dataVizBlue: "{data-viz.colors.dataVizBlue}",
+        dataVizBlueSubtle: "{data-viz.colors.dataVizBlueSubtle}",
+        dataVizSkyBlue: "{data-viz.colors.dataVizSkyBlue}",
+        dataVizSkyBlueSubtle: "{data-viz.colors.dataVizSkyBlueSubtle}",
+        dataVizMintGreen: "{data-viz.colors.dataVizMintGreen}",
+        dataVizMintGreenSubtle: "{data-viz.colors.dataVizMintGreenSubtle}",
+        dataVizOliveGreen: "{data-viz.colors.dataVizOliveGreen}",
+        dataVizOliveGreenSubtle: "{data-viz.colors.dataVizOliveGreenSubtle}",
+        dataVizYellow: "{data-viz.colors.dataVizYellow}",
+        dataVizYellowSubtle: "{data-viz.colors.dataVizYellowSubtle}",
+        dataVizOrange: "{data-viz.colors.dataVizOrange}",
+        dataVizOrangeSubtle: "{data-viz.colors.dataVizOrangeSubtle}",
+        dataVizRed: "{data-viz.colors.dataVizRed}",
+        dataVizRedSubtle: "{data-viz.colors.dataVizRedSubtle}",
+        dataVizMagenta: "{data-viz.colors.dataVizMagenta}",
+        dataVizMagentaSubtle: "{data-viz.colors.dataVizMagentaSubtle}",
+        dataVizBrown: "{data-viz.colors.dataVizBrown}",
+        dataVizBrownSubtle: "{data-viz.colors.dataVizBrownSubtle}",
+        dataVizGrey: "{data-viz.colors.dataVizGrey}",
+        dataVizGreySubtle: "{data-viz.colors.dataVizGreySubtle}",
       },
-      // Interaction tokens for data-viz
+      border: {
+        dataVizLilac: "{data-viz.colors.dataVizLilac}",
+        dataVizLilacSubtle: "{data-viz.colors.dataVizLilacSubtle}",
+        dataVizBlue: "{data-viz.colors.dataVizBlue}",
+        dataVizBlueSubtle: "{data-viz.colors.dataVizBlueSubtle}",
+        dataVizSkyBlue: "{data-viz.colors.dataVizSkyBlue}",
+        dataVizSkyBlueSubtle: "{data-viz.colors.dataVizSkyBlueSubtle}",
+        dataVizMintGreen: "{data-viz.colors.dataVizMintGreen}",
+        dataVizMintGreenSubtle: "{data-viz.colors.dataVizMintGreenSubtle}",
+        dataVizOliveGreen: "{data-viz.colors.dataVizOliveGreen}",
+        dataVizOliveGreenSubtle: "{data-viz.colors.dataVizOliveGreenSubtle}",
+        dataVizYellow: "{data-viz.colors.dataVizYellow}",
+        dataVizYellowSubtle: "{data-viz.colors.dataVizYellowSubtle}",
+        dataVizOrange: "{data-viz.colors.dataVizOrange}",
+        dataVizOrangeSubtle: "{data-viz.colors.dataVizOrangeSubtle}",
+        dataVizRed: "{data-viz.colors.dataVizRed}",
+        dataVizRedSubtle: "{data-viz.colors.dataVizRedSubtle}",
+        dataVizMagenta: "{data-viz.colors.dataVizMagenta}",
+        dataVizMagentaSubtle: "{data-viz.colors.dataVizMagentaSubtle}",
+        dataVizBrown: "{data-viz.colors.dataVizBrown}",
+        dataVizBrownSubtle: "{data-viz.colors.dataVizBrownSubtle}",
+        dataVizGrey: "{data-viz.colors.dataVizGrey}",
+        dataVizGreySubtle: "{data-viz.colors.dataVizGreySubtle}",
+      },
+      content: {
+        dataVizLilac: "{data-viz.colors.dataVizLilac}",
+        dataVizLilacSubtle: "{data-viz.colors.dataVizLilacSubtle}",
+        dataVizBlue: "{data-viz.colors.dataVizBlue}",
+        dataVizBlueSubtle: "{data-viz.colors.dataVizBlueSubtle}",
+        dataVizSkyBlue: "{data-viz.colors.dataVizSkyBlue}",
+        dataVizSkyBlueSubtle: "{data-viz.colors.dataVizSkyBlueSubtle}",
+        dataVizMintGreen: "{data-viz.colors.dataVizMintGreen}",
+        dataVizMintGreenSubtle: "{data-viz.colors.dataVizMintGreenSubtle}",
+        dataVizOliveGreen: "{data-viz.colors.dataVizOliveGreen}",
+        dataVizOliveGreenSubtle: "{data-viz.colors.dataVizOliveGreenSubtle}",
+        dataVizYellow: "{data-viz.colors.dataVizYellow}",
+        dataVizYellowSubtle: "{data-viz.colors.dataVizYellowSubtle}",
+        dataVizOrange: "{data-viz.colors.dataVizOrange}",
+        dataVizOrangeSubtle: "{data-viz.colors.dataVizOrangeSubtle}",
+        dataVizRed: "{data-viz.colors.dataVizRed}",
+        dataVizRedSubtle: "{data-viz.colors.dataVizRedSubtle}",
+        dataVizMagenta: "{data-viz.colors.dataVizMagenta}",
+        dataVizMagentaSubtle: "{data-viz.colors.dataVizMagentaSubtle}",
+        dataVizBrown: "{data-viz.colors.dataVizBrown}",
+        dataVizBrownSubtle: "{data-viz.colors.dataVizBrownSubtle}",
+        dataVizGrey: "{data-viz.colors.dataVizGrey}",
+        dataVizGreySubtle: "{data-viz.colors.dataVizGreySubtle}",
+      },
       interaction: {
-        backgroundHover: "{data-viz.colors.dataVizLilac}"
+        transparentHover: "{data-viz.colors.dataVizLilac}"
       }
     },
     temporary: {
       background: {
         tempNbtPink: "{temporary.colors.tempNbtPink}",
-        tempNbtBlue: "{temporary.colors.tempNbtBlue}"
+        tempNbtBlue: "{temporary.colors.tempNbtBlue}",
+        tempNbtYellow: "{temporary.colors.tempNbtYellow}",
+        tempNbtGray: "{temporary.colors.tempNbtGray}",
+        tempNbtRed: "{temporary.colors.tempNbtRed}"
       },
-      // Interaction tokens for temporary
       interaction: {
-        backgroundHover: "{temporary.colors.tempNbtPink}"
+        transparentHover: "{temporary.colors.tempNbtPink}"
       }
     }
   },
@@ -118,10 +231,9 @@ module.exports = {
       },
       border: {
         prefix: "border",
-        property: "border", // expecting border defined in CSS as border property
+        property: "border", 
         tokens: "{semanticTokens.groww-primary.border}"
       },
-      // Utility for interaction tokens (hover state)
       interactionHover: {
         prefix: "background",
         property: "background-color",
