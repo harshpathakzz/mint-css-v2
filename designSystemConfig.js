@@ -1,8 +1,6 @@
-
-
 module.exports = {
   primitives: {
-    'groww-primary': {
+    "groww-primary": {
       colors: {
         black: { light: "#121212", dark: "#121212" },
         white: { light: "#ffffff", dark: "#ffffff" },
@@ -27,14 +25,53 @@ module.exports = {
         yellow100: { light: "#fff5e0", dark: "#46391d" },
         red500: { light: "#ED5533", dark: "#FF5E3B" },
         red100: { light: "#fae9e5", dark: "#411d16" },
-        overlay00: { light: "rgba(18, 18, 18, 0)", dark: "rgba(18, 18, 18, 0)" },
-        overlay30: { light: "rgba(18, 18, 18, 0.3)", dark: "rgba(18, 18, 18, 0.3)" },
-        overlay70: { light: "rgba(18, 18, 18, 0.7)", dark: "rgba(18, 18, 18, 0.7)" },
+        overlay00: {
+          light: "rgba(18, 18, 18, 0)",
+          dark: "rgba(18, 18, 18, 0)",
+        },
+        overlay30: {
+          light: "rgba(18, 18, 18, 0.3)",
+          dark: "rgba(18, 18, 18, 0.3)",
+        },
+        overlay70: {
+          light: "rgba(18, 18, 18, 0.7)",
+          dark: "rgba(18, 18, 18, 0.7)",
+        },
         yellow11: { light: "#A16B00", dark: "#F5BC56" },
         dangerouslySetPrimaryBg: { light: "#ffffff", dark: "#121212" },
-      }
+
+        // Hover State
+        transparentHover: { light: "#44475B0F", dark: "#44475B0F" },
+
+        accentHover: { light: "#04AD83", dark: "#04AD83" },
+        accentSubtleHover: { light: "#DDF5EE", dark: "#DDF5EE" },
+        transparentAccentHover: { light: "#00B3860F", dark: "#00B3860F" },
+
+        positiveHover: { light: "#04AD83", dark: "#04AD83" },
+        positiveSubtleHover: { light: "#DDF5EE", dark: "#DDF5EE" },
+        transparentPositiveHover: { light: "#00B3860F", dark: "#00B3860F" },
+
+        negativeHover: { light: "#E15A3E", dark: "#E15A3E" },
+        negativeSubtleHover: { light: "#F9E0DB", dark: "#F9E0DB" },
+        transparentNegativeHover: { light: "#EB5B3C0F", dark: "#EB5B3C0F" },
+
+        // Selected State
+        transparentSelected: { light: "#44475B0F", dark: "#44475B0F" },
+
+        accentSelected: { light: "#04AD83", dark: "#04AD83" },
+        accentSubtleSelected: { light: "#DDF5EE", dark: "#DDF5EE" },
+        transparentAccentSelected: { light: "#00B3860F", dark: "#00B3860F" },
+
+        positiveSelected: { light: "#04AD83", dark: "#04AD83" },
+        positiveSubtleSelected: { light: "#DDF5EE", dark: "#DDF5EE" },
+        transparentPositiveSelected: { light: "#00B3860F", dark: "#00B3860F" },
+
+        negativeSelected: { light: "#E15A3E", dark: "#E15A3E" },
+        negativeSubtleSelected: { light: "#F9E0DB", dark: "#F9E0DB" },
+        transparentNegativeSelected: { light: "#EB5B3C0F", dark: "#EB5B3C0F" },
+      },
     },
-    'data-viz': {
+    "data-viz": {
       colors: {
         dataVizLilac: { light: "#7A7AC6", dark: "#7A7AC6" },
         dataVizLilacSubtle: { light: "#DFE0EF", dark: "#1D1E2F" },
@@ -58,7 +95,7 @@ module.exports = {
         dataVizBrownSubtle: { light: "#DFCECD", dark: "#332322" },
         dataVizGrey: { light: "#808FA3", dark: "#808FA3" },
         dataVizGreySubtle: { light: "#BEC6D0", dark: "#434C56" },
-      }
+      },
     },
     temporary: {
       colors: {
@@ -67,20 +104,32 @@ module.exports = {
         tempNbtBlue: { light: "#d6eeff", dark: "#3e79a4" },
         tempNbtGray: { light: "#f0f0f2", dark: "#5c5c6f" },
         tempNbtRed: { light: "#ffc7bb", dark: "#c85d0f" },
-      }
-    }
+      },
+    },
   },
   semanticTokens: {
-    'groww-primary': {
+    "groww-primary": {
       // Extended mapping based on the provided CSS variables
       background: {
-        primary: { light: "{groww-primary.colors.white}", dark: "{groww-primary.colors.black}" },
+        primary: {
+          light: "{groww-primary.colors.white}",
+          dark: "{groww-primary.colors.black}",
+        },
         secondary: "{groww-primary.colors.gray50}",
         tertiary: "{groww-primary.colors.gray100}",
         transparent: "{groww-primary.colors.overlay00}",
-        surfacePrimary: { light: "{groww-primary.colors.white}", dark: "{groww-primary.colors.gray50}" },
-        surfaceSecondary: { light: "{groww-primary.colors.gray50}", dark: "{groww-primary.colors.gray100}" },
-        inversePrimary: { light: "{groww-primary.colors.gray900}", dark: "{groww-primary.colors.white}" },
+        surfacePrimary: {
+          light: "{groww-primary.colors.white}",
+          dark: "{groww-primary.colors.gray50}",
+        },
+        surfaceSecondary: {
+          light: "{groww-primary.colors.gray50}",
+          dark: "{groww-primary.colors.gray100}",
+        },
+        inversePrimary: {
+          light: "{groww-primary.colors.gray900}",
+          dark: "{groww-primary.colors.white}",
+        },
         overlayPrimary: "{groww-primary.colors.overlay70}",
         overlaySecondary: "{groww-primary.colors.overlay30}",
         alwaysDark: "{groww-primary.colors.black}",
@@ -94,7 +143,7 @@ module.exports = {
         negativeSubtle: "{groww-primary.colors.red100}",
         warningSubtle: "{groww-primary.colors.yellow100}",
         accentSecondary: "{groww-primary.colors.purple500}",
-        accentSecondarySubtle: "{groww-primary.colors.purple100}"
+        accentSecondarySubtle: "{groww-primary.colors.purple100}",
       },
       border: {
         primary: "{groww-primary.colors.gray150}",
@@ -102,31 +151,74 @@ module.exports = {
         accent: "{groww-primary.colors.green500}",
         positive: "{groww-primary.colors.green500}",
         negative: "{groww-primary.colors.red500}",
-        neutral: { light: "{groww-primary.colors.gray900}", dark: "{groww-primary.colors.white}" }
+        neutral: {
+          light: "{groww-primary.colors.gray900}",
+          dark: "{groww-primary.colors.white}",
+        },
       },
       content: {
-        primary: { light: "{groww-primary.colors.gray900}", dark: "{groww-primary.colors.white}" },
+        primary: {
+          light: "{groww-primary.colors.gray900}",
+          dark: "{groww-primary.colors.white}",
+        },
         secondary: "{groww-primary.colors.gray700}",
         tertiary: "{groww-primary.colors.gray500}",
-        inversePrimary: { light: "{groww-primary.colors.white}", dark: "{groww-primary.colors.black}" },
-        inverseSecondary: { light: "{groww-primary.colors.gray300}", dark: "{groww-primary.colors.gray400}" },
-        disabled: { light: "{groww-primary.colors.gray400}", dark: "{groww-primary.colors.gray500}" },
+        inversePrimary: {
+          light: "{groww-primary.colors.white}",
+          dark: "{groww-primary.colors.black}",
+        },
+        inverseSecondary: {
+          light: "{groww-primary.colors.gray300}",
+          dark: "{groww-primary.colors.gray400}",
+        },
+        disabled: {
+          light: "{groww-primary.colors.gray400}",
+          dark: "{groww-primary.colors.gray500}",
+        },
         onColour: "{groww-primary.colors.white}",
-        onColourInverse: { light: "{groww-primary.colors.gray900}", dark: "{groww-primary.colors.black}" },
+        onColourInverse: {
+          light: "{groww-primary.colors.gray900}",
+          dark: "{groww-primary.colors.black}",
+        },
         accent: "{groww-primary.colors.green500}",
         negative: "{groww-primary.colors.red500}",
         warning: "{groww-primary.colors.yellow500}",
         positive: "{groww-primary.colors.green500}",
         accentSecondary: "{groww-primary.colors.purple500}",
         accentSecondarySubtle: "{groww-primary.colors.purple300}",
-        onWarningSubtle: "{groww-primary.colors.yellow11}"
+        onWarningSubtle: "{groww-primary.colors.yellow11}",
       },
-      // Existing interaction tokens remain unchanged
-      interactionHover: {
-        transparentHover: { light: "{groww-primary.colors.gray150}", dark: "{groww-primary.colors.gray50}" }
+      bg: {
+        // Hover State
+        transparentHover: "{groww-primary.colors.transparentHover}",
+        accentHover: "{groww-primary.colors.accentHover}",
+        accentSubtleHover: "{groww-primary.colors.accentSubtleHover}",
+        transparentAccentHover: "{groww-primary.colors.transparentAccentHover}",
+    
+        positiveHover: "{groww-primary.colors.positiveHover}",
+        positiveSubtleHover: "{groww-primary.colors.positiveSubtleHover}",
+        transparentPositiveHover: "{groww-primary.colors.transparentPositiveHover}",
+    
+        negativeHover: "{groww-primary.colors.negativeHover}",
+        negativeSubtleHover: "{groww-primary.colors.negativeSubtleHover}",
+        transparentNegativeHover: "{groww-primary.colors.transparentNegativeHover}",
+    
+        // Selected State
+        transparentSelected: "{groww-primary.colors.transparentSelected}",
+        accentSelected: "{groww-primary.colors.accentSelected}",
+        accentSubtleSelected: "{groww-primary.colors.accentSubtleSelected}",
+        transparentAccentSelected: "{groww-primary.colors.transparentAccentSelected}",
+    
+        positiveSelected: "{groww-primary.colors.positiveSelected}",
+        positiveSubtleSelected: "{groww-primary.colors.positiveSubtleSelected}",
+        transparentPositiveSelected: "{groww-primary.colors.transparentPositiveSelected}",
+    
+        negativeSelected: "{groww-primary.colors.negativeSelected}",
+        negativeSubtleSelected: "{groww-primary.colors.negativeSubtleSelected}",
+        transparentNegativeSelected: "{groww-primary.colors.transparentNegativeSelected}",
       }
     },
-    'data-viz': {
+    "data-viz": {
       background: {
         dataVizLilac: "{data-viz.colors.dataVizLilac}",
         dataVizLilacSubtle: "{data-viz.colors.dataVizLilacSubtle}",
@@ -199,9 +291,7 @@ module.exports = {
         dataVizGrey: "{data-viz.colors.dataVizGrey}",
         dataVizGreySubtle: "{data-viz.colors.dataVizGreySubtle}",
       },
-      interaction: {
-        transparentHover: "{data-viz.colors.dataVizLilac}"
-      }
+    
     },
     temporary: {
       background: {
@@ -209,57 +299,52 @@ module.exports = {
         tempNbtBlue: "{temporary.colors.tempNbtBlue}",
         tempNbtYellow: "{temporary.colors.tempNbtYellow}",
         tempNbtGray: "{temporary.colors.tempNbtGray}",
-        tempNbtRed: "{temporary.colors.tempNbtRed}"
+        tempNbtRed: "{temporary.colors.tempNbtRed}",
       },
-      interaction: {
-        transparentHover: "{temporary.colors.tempNbtPink}"
-      }
-    }
+    },
   },
   utilityClasses: {
-    'groww-primary': {
+    "groww-primary": {
       background: {
         prefix: "background",
         property: "background-color",
-        tokens: "{semanticTokens.groww-primary.background}"
+        tokens: "{semanticTokens.groww-primary.background}",
       },
       border: {
         prefix: "border",
-        property: "border", 
-        tokens: "{semanticTokens.groww-primary.border}"
+        property: "border",
+        tokens: "{semanticTokens.groww-primary.border}",
       },
-      interactionHover: {
+      interactionState: {
         prefix: "background",
         property: "background-color",
-        tokens: "{semanticTokens.groww-primary.interactionHover}",
-        pseudo: ":hover"
-      }
+        tokens: "{semanticTokens.groww-primary.bg}",
+        pseudo: ":hover",
+      },
     },
-    'data-viz': {
+    "data-viz": {
       background: {
         prefix: "background",
         property: "background-color",
-        tokens: "{semanticTokens.data-viz.background}"
+        tokens: "{semanticTokens.data-viz.background}",
       },
-      interactionHover: {
-        prefix: "background",
-        property: "background-color",
-        tokens: "{semanticTokens.data-viz.interaction}",
-        pseudo: ":hover"
-      }
+      border: {
+        prefix: "border",
+        property: "border",
+        tokens: "{semanticTokens.data-viz.border}",
+      },
+      content: {
+        prefix: "color",
+        property: "color",
+        tokens: "{semanticTokens.data-viz.content}",
+      },
     },
     temporary: {
       background: {
         prefix: "background",
         property: "background-color",
-        tokens: "{semanticTokens.temporary.background}"
+        tokens: "{semanticTokens.temporary.background}",
       },
-      interactionHover: {
-        prefix: "background",
-        property: "background-color",
-        tokens: "{semanticTokens.temporary.interaction}",
-        pseudo: ":hover"
-      }
-    }
-  }
+    },
+  },
 };
