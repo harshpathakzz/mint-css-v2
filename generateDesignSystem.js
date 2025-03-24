@@ -63,7 +63,8 @@ function generateTokenCSS(category, tokens) {
   let lightCSS = '';
   let darkCSS = '';
   for (const [tokenName, tokenValue] of Object.entries(tokens)) {
-    const cssVarName = `--${category}-${toKebabCase(tokenName)}`;
+    // Ensure keys (even if camelCase) are converted to kebab-case.
+    const cssVarName = `--${toKebabCase(category)}-${toKebabCase(tokenName)}`;
     if (typeof tokenValue === 'object' && tokenValue.light && tokenValue.dark) {
       const lightVal = typeof tokenValue.light === 'string'
         ? resolveReference(tokenValue.light)
@@ -88,7 +89,22 @@ function generateTokenCSS(category, tokens) {
 // Generates CSS for utility classes.
 // Each class is generated with the CSS property specified in the config (property is required).
 // Supports optional pseudo selectors.
+// The util key is only used for naming files; the CSS variable name is determined by the original token reference.
+// If the tokensInput is a reference string from semanticTokens, the token category from that reference is used for the variable name.
 function generateUtilityClassesCSS(prefix, tokensInput, utilConfig = {}) {
+  // Determine if tokensInput is a reference string from semanticTokens.
+  let varPrefix = utilConfig.prefix; // default to the provided prefix
+  if (typeof tokensInput === 'string') {
+    const refMatch = tokensInput.match(/^\{([^}]+)\}$/);
+    if (refMatch) {
+      const refParts = refMatch[1].split('.');
+      if (refParts[0] === 'semanticTokens' && refParts.length >= 3) {
+        // Use the token category (third part) as the CSS variable prefix.
+        varPrefix = refParts[2];
+      }
+    }
+  }
+
   // Resolve tokens if tokensInput is a reference string.
   let tokensObj = tokensInput;
   if (typeof tokensObj === 'string') {
@@ -125,11 +141,12 @@ function generateUtilityClassesCSS(prefix, tokensInput, utilConfig = {}) {
 
   let css = '';
   for (const tokenKey in tokensObj) {
+    // Convert token key from camelCase (if applicable) to kebab-case.
     const tokenKebab = toKebabCase(tokenKey);
-    // Create a class name from the prefix and token name (in PascalCase).
-    const className = prefix + toPascalCase(tokenKebab);
-    // Build the CSS variable name from the prefix (lowercase) and token name.
-    const cssVarName = `--${prefix.toLowerCase()}-${tokenKebab}`;
+    // Create a class name from the util prefix and token name (in PascalCase).
+    const className = utilConfig.prefix + toPascalCase(tokenKebab);
+    // Build the CSS variable name from the resolved varPrefix (converted to kebab-case) and token name.
+    const cssVarName = `--${toKebabCase(varPrefix)}-${tokenKebab}`;
     // Generate the CSS rule using the property from the config.
     if (property === 'border') {
       css += `.${className}${pseudo} { border: 1px solid var(${cssVarName}); }\n\n`;
@@ -270,7 +287,7 @@ for (const group in config.utilityClasses) {
         }
       }
     }
-    const cssContent = generateUtilityClassesCSS(utilConfig.prefix, tokensObj, utilConfig);
+    const cssContent = generateUtilityClassesCSS(utilConfig.prefix, utilConfig.tokens, utilConfig);
     const categoryFolder = toKebabCase(utilKey);
     const cssDir = path.join(distDir, 'css', categoryFolderMap.utilityClasses, toKebabCase(group));
     ensureDir(cssDir);

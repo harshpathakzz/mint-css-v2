@@ -1,10 +1,4 @@
-// designSystemConfig.js
-// This configuration defines our design tokens for primitives, semanticTokens, and utilityClasses.
-// Interaction tokens (such as hover states) are now nested under each group (groww-primary, data-viz, temporary)
-// in the semanticTokens section. All utilityClasses entries MUST define a "property" key.
-//
-// New: Semantic tokens can now be defined with either an object containing "light" and "dark" keys,
-// or as a single string reference. When provided as a string, the same value is used for both themes.
+
 
 module.exports = {
   primitives: {
@@ -128,7 +122,7 @@ module.exports = {
         onWarningSubtle: "{groww-primary.colors.yellow11}"
       },
       // Existing interaction tokens remain unchanged
-      interaction: {
+      interactionHover: {
         transparentHover: { light: "{groww-primary.colors.gray150}", dark: "{groww-primary.colors.gray50}" }
       }
     },
@@ -237,7 +231,7 @@ module.exports = {
       interactionHover: {
         prefix: "background",
         property: "background-color",
-        tokens: "{semanticTokens.groww-primary.interaction}",
+        tokens: "{semanticTokens.groww-primary.interactionHover}",
         pseudo: ":hover"
       }
     },
