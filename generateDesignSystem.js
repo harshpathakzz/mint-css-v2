@@ -158,7 +158,7 @@ function generateUtilityClassesCSS(prefix, tokensInput, utilConfig = {}) {
 }
 
 // ---------- Folder Setup ----------
-const distDir = path.join(__dirname, 'dist');
+const distDir = path.join(__dirname, 'theme');
 const outputTypes = [
   { name: 'css', base: path.join(distDir, 'css') },
   { name: 'ts', base: path.join(distDir, 'ts') },
@@ -322,4 +322,30 @@ for (const group in config.utilityClasses) {
   console.log(`Generated aggregated TS types and names for utility classes group: ${group}`);
 }
 
-console.log("Design system package generated successfully in the 'dist' folder.");
+// ---------- Generate Index CSS ----------
+// This function recursively collects all .css files under the given directory and
+// generates an index.css with @import rules relative to the outermost output directory.
+function generateIndexCss(rootDir, relativeDir = '') {
+  let imports = '';
+  const entries = fs.readdirSync(rootDir, { withFileTypes: true });
+  entries.forEach(entry => {
+    const entryPath = path.join(rootDir, entry.name);
+    const entryRelativePath = path.join(relativeDir, entry.name);
+    if (entry.isDirectory()) {
+      imports += generateIndexCss(entryPath, entryRelativePath);
+    } else if (entry.isFile() && entry.name.endsWith('.css')) {
+      // Create a relative path from the theme folder
+      const importPath = './' + path.join('css', entryRelativePath).replace(/\\/g, '/');
+      imports += `@import '${importPath}';\n`;
+    }
+  });
+  return imports;
+}
+
+const cssRootDir = path.join(distDir, 'css');
+const indexCssContent = generateIndexCss(cssRootDir);
+const indexCssPath = path.join(distDir, 'index.css');
+fs.writeFileSync(indexCssPath, indexCssContent);
+console.log(`Generated index.css at ${indexCssPath}`);
+
+console.log("Design system package generated successfully in the 'theme' folder.");
